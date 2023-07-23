@@ -51,7 +51,7 @@ namespace Persistence
                         Date = DateTime.Now.AddMonths(-2),
                         Description = "Activity 2 months ago",
                         Category = "Drinks",
-                        //City = "London",
+                        City = "London",
                         Venue = "Pub",
                         //UserActivities = new List<UserActivity>
                         //{
@@ -69,7 +69,7 @@ namespace Persistence
                         Date = DateTime.Now.AddMonths(-1),
                         Description = "Activity 1 month ago",
                         Category = "Culture",
-                        //City = "Paris",
+                        City = "Paris",
                         Venue = "The Louvre",
                         //UserActivities = new List<UserActivity>
                         //{
@@ -93,7 +93,7 @@ namespace Persistence
                         Date = DateTime.Now.AddMonths(1),
                         Description = "Activity 1 month in future",
                         Category = "Music",
-                        //City = "London",
+                        City = "London",
                         Venue = "Wembly Stadium",
                         //UserActivities = new List<UserActivity>
                         //{
@@ -117,7 +117,7 @@ namespace Persistence
                         Date = DateTime.Now.AddMonths(2),
                         Description = "Activity 2 months in future",
                         Category = "Food",
-                        //City = "London",
+                        City = "London",
                         Venue = "Jamies Italian",
                         //UserActivities = new List<UserActivity>
                         //{
@@ -141,7 +141,7 @@ namespace Persistence
                         Date = DateTime.Now.AddMonths(3),
                         Description = "Activity 3 months in future",
                         Category = "Drinks",
-                        //City = "London",
+                        City = "London",
                         Venue = "Pub",
                         //UserActivities = new List<UserActivity>
                         //{
@@ -165,7 +165,7 @@ namespace Persistence
                         Date = DateTime.Now.AddMonths(4),
                         Description = "Activity 4 months in future",
                         Category = "Culture",
-                        //City = "London",
+                        City = "London",
                         Venue = "British Museum",
                         //UserActivities = new List<UserActivity>
                         //{
@@ -183,7 +183,7 @@ namespace Persistence
                         Date = DateTime.Now.AddMonths(5),
                         Description = "Activity 5 months in future",
                         Category = "Drinks",
-                        //City = "London",
+                        City = "London",
                         Venue = "Punch and Judy",
                         //UserActivities = new List<UserActivity>
                         //{
@@ -207,7 +207,7 @@ namespace Persistence
                         Date = DateTime.Now.AddMonths(6),
                         Description = "Activity 6 months in future",
                         Category = "Music",
-                        //City = "London",
+                        City = "London",
                         Venue = "O2 Arena",
                         //UserActivities = new List<UserActivity>
                         //{
@@ -231,7 +231,7 @@ namespace Persistence
                         Date = DateTime.Now.AddMonths(7),
                         Description = "Activity 7 months in future",
                         Category = "Travel",
-                        //City = "Berlin",
+                        City = "Berlin",
                         Venue = "All",
                         //UserActivities = new List<UserActivity>
                         //{
@@ -255,7 +255,7 @@ namespace Persistence
                         Date = DateTime.Now.AddMonths(8),
                         Description = "Activity 8 months in future",
                         Category = "Drinks",
-                        //City = "London",
+                        City = "London",
                         Venue = "Pub",
                         //UserActivities = new List<UserActivity>
                         //{

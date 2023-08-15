@@ -1,31 +1,45 @@
 import { Button, Form, Segment } from "semantic-ui-react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useStore } from "../../../app/stores/store";
+import { observer } from "mobx-react-lite";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Activity } from "../../../app/models/activity";
-import { ChangeEvent, useState } from "react";
+import { v4 as uuid } from 'uuid';
 
+const ActivityForm = () => {
 
-interface Props{
-    activity:Activity | undefined,
-    closeForm : () => void,
-    createOrEdit: (activity:Activity) => void,
-    submitting:boolean
-}
+  const {activityStore} = useStore();
+  const {loading, createActivity, editActivity
+  , loadActivity} = activityStore;
 
-const ActivityForm = ({closeForm, activity:selectedActivity, createOrEdit, submitting}:Props) => {
+  const {id} = useParams();
 
-    const initialState = selectedActivity ?? {
-        id:'',
-        title:'',
-        category:'',
-        description:'',
-        date:'',
-        city:'',
-        venue:''
-    };
+    const [activity, setActivity] = useState<Activity>({
+      id: "",
+      title: "",
+      category: "",
+      description: "",
+      date: "",
+      city: "",
+      venue: "",
+    });
+    
+    const navigate = useNavigate();
 
-    const [activity, setActivity] = useState(initialState);
+    useEffect(() => {
+      if (id) loadActivity(id).then(activity => setActivity(activity!));
+  }, [id, loadActivity])
 
     const handleSubmit = () => {
-        createOrEdit(activity);
+      if (!activity.id) {
+        let newActivity = {
+            ...activity,
+            id: uuid()
+        }
+        createActivity(newActivity).then(() => navigate(`/activities/${newActivity.id}`))
+    } else {
+      editActivity(activity).then(() => navigate(`/activities/${activity.id}`))
+    }
     }
 
     const handleInputChange = (event:ChangeEvent<HTMLInputElement | HTMLTextAreaElement >) => {
@@ -45,11 +59,11 @@ const ActivityForm = ({closeForm, activity:selectedActivity, createOrEdit, submi
           <Form.Input type="date" placeholder="Date" value={activity.date} name='date' onChange={handleInputChange} />
           <Form.Input placeholder="City"  value={activity.city} name='city' onChange={handleInputChange}/>
           <Form.Input placeholder="Venue" value={activity.venue} name='venue' onChange={handleInputChange} />
-          <Button loading={submitting} floated="right" positive type="submit" content="Submit"  />
-          <Button floated="right" type="button" content="Cancel" onClick={closeForm} onChange={handleInputChange} />
+          <Button loading={loading} floated="right" positive type="submit" content="Submit"  />
+          <Button as={Link} to='/activities' floated="right" type="button" content="Cancel"onChange={handleInputChange} />
         </Form>
       </Segment>
     );
 }
 
-export default ActivityForm;
+export default observer( ActivityForm);

@@ -20,6 +20,18 @@ export default class ActivityStore {
     );
   }
 
+  get groupedActivities() {
+    return Object.entries(
+
+        this.activitiesByDate.reduce((activities /*Acumulator*/, activity /* current value */) => {
+          const date = activity.date;
+
+            activities[date] = activities[date] ? [...activities[date], activity] : [activity];
+            return activities;
+        }, {} as { [key: string]: Activity[] } /* initial value */)
+    )
+  }
+
   loadActivities = async () => {
     this.setInitialLoading(true);
     try {

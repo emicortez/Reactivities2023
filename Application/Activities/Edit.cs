@@ -1,55 +1,56 @@
-﻿using AutoMapper;
+﻿using Application.Core;
+using AutoMapper;
 using Domain;
+using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 namespace Application.Activities
 {
     public class Edit
     {
-        public class Command : IRequest
+        public class Command : IRequest<Result<Unit>>
         {
-            public Command(Activity Activity)
+            public Command(Activity activity)
             {
-                this.Activity = Activity;
+                Activity = activity;
             }
 
             public Activity Activity { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command>
+        public class CommandValidator : AbstractValidator<Command>
         {
-            private readonly DataContext _dataContext;
+            public CommandValidator()
+            {
+                RuleFor(x => x.Activity).SetValidator(new ActivityValidator());
+            }
+        }
+
+        public class Handler : IRequestHandler<Command, Result<Unit>>
+        {
+            private readonly DataContext _context;
             private readonly IMapper _mapper;
 
-            public Handler(DataContext dataContext, IMapper mapper)
+            public Handler(DataContext context, IMapper mapper)
             {
-                _dataContext = dataContext;
                 _mapper = mapper;
+                _context = context;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var activity = await _dataContext.Activities.FindAsync(request.Activity.Id);
+                var activity = await _context.Activities.FindAsync(request.Activity.Id);
 
-                //if (activity == null)
-                //    throw new RestException(System.Net.HttpStatusCode.NotFound, new { activity = "Not Found" });
-
-                //activity.Title = request.Activity.Title ?? activity.Title;
-                //activity.Category = request.Activity.Category;
-                //activity.City = request.Activity.City;
-                //activity.Date = request.Activity.Date;
-                //activity.Venue = request.Activity.Venue;
-                //activity.Description = request.Activity.Description;
+                if (activity == null) return null;
 
                 _mapper.Map(request.Activity, activity);
 
-                var success = await _dataContext.SaveChangesAsync() > 0;
+                var result = await _context.SaveChangesAsync() > 0;
 
-                if (success) return Unit.Value;
+                if (!result) return Result<Unit>.Failure("Failed to update activity");
 
-                throw new Exception("Problem saving changes");
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }

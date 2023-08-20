@@ -1,8 +1,11 @@
-import { createBrowserRouter, RouteObject } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouteObject } from "react-router-dom";
 import App from "../layout/App";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
 import ActivityForm from "../../features/activities/form/ActivityForm";
 import ActivityDetails from "../../features/activities/details/ActivityDetails";
+import NotFound from "../../features/errors/NotFound";
+import ServerError from "../../features/errors/ServerError";
+import TestErrors from "../../features/errors/TestErrors";
 
 export const routes: RouteObject[] = [
   {
@@ -25,6 +28,10 @@ export const routes: RouteObject[] = [
         path: "manage/:id",
         element: <ActivityForm key="manage" />,
       },
+      {path: 'not-found', element: <NotFound />},
+      {path: 'test-errors', element: <TestErrors />},
+      {path: 'server-error', element: <ServerError />},
+      {path: '*', element: <Navigate replace to='/not-found' />},
     ],
   },
 ];

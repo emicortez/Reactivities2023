@@ -3,11 +3,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Header, Segment, Image } from "semantic-ui-react";
 import { useStore } from '../../app/stores/store';
-// import LoginForm from '../users/LoginForm';
+import LoginForm from '../users/LoginForm';
+import RegsiterForm from '../users/RegsiterForm';
 // import RegsiterForm from '../users/RegsiterForm';
 
 const HomePage = () => {
-    // const { userStore, modalStore } = useStore();
+    const { userStore, modalStore } = useStore();
     return (
         <Segment inverted textAlign='center' vertical className='masthead' >
             <Container text>
@@ -15,12 +16,7 @@ const HomePage = () => {
                     <Image size='massive' src='/assets/logo.png' alt='logo' style={{ marginBottom: 12 }} />
                     Reactivities
                 </Header>
-                <Header as='h2' inverted  />
-                {/* content={`Welcome back ${userStore.user?.displayName}`} */}
-                        <Button as={Link} to='/activities' size='huge' inverted>
-                            Go to activities!
-                        </Button>
-                {/* {userStore.isLoggedIn ? (
+                {userStore.isLoggedIn ? (
                     <>
                         <Header as='h2' inverted content={`Welcome back ${userStore.user?.displayName}`} />
                         <Button as={Link} to='/activities' size='huge' inverted>
@@ -37,10 +33,10 @@ const HomePage = () => {
                         </Button>
                     </>
 
-                )} */}
+                )}
             </Container>
         </Segment>
     )
 }
 
-export default HomePage;
+export default observer(HomePage);

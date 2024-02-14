@@ -26,7 +26,7 @@ const ActivityListItem = ({ activity }: Props) => {
            <Item.Image
              size="tiny"
              circular
-             src={"/assets/user.png"}
+             src={activity.host?.image || '/assets/user.png'}
              style={{ marginBottom: 3 }}
            />
            <Item.Content>
@@ -34,7 +34,7 @@ const ActivityListItem = ({ activity }: Props) => {
                {activity.title}
              </Item.Header>
              <Item.Description>
-               Hosted by {activity.host?.displayName}
+               Hosted by <Link to={`/profiles/${activity.hostUsername}`}>{activity.host?.displayName}</Link>
              </Item.Description>
              {activity.isHost && (
                <Item.Description>

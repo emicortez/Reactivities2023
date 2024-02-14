@@ -1,4 +1,6 @@
-﻿namespace Application.Profiles
+﻿using Domain;
+
+namespace Application.Profiles
 {
     public class Profile
     {
@@ -9,6 +11,6 @@
         public bool Following { get; set; }
         //public int FollowersCount { get; set; }
         //public int FollowingCount { get; set; }
-        //public ICollection<Photo> Photos { get; set; }
+        public ICollection<Photo> Photos { get; set; }
     }
 }

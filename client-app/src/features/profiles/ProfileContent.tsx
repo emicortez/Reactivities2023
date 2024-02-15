@@ -6,6 +6,7 @@ import { useStore } from '../../app/stores/store';
 // import ProfileActivities from './ProfileActivities';
 // import ProfileFollowings from './ProfileFollowings';
  import ProfilePhotos from './ProfilePhotos';
+import ProfileAbout from './ProfileAbout';
 
 interface Props {
     profile: Profile
@@ -15,7 +16,7 @@ const ProfileContent = ({ profile }: Props) => {
      const {profileStore} = useStore();
 
     const panes = [
-        { menuItem: 'About', render: () =>  <Tab.Pane>About content</Tab.Pane> }, //<ProfileAbout />
+        { menuItem: 'About', render: () => < ProfileAbout profile={profile} />}, //<ProfileAbout />
         { menuItem: 'Photos', render: () => <ProfilePhotos profile={profile} /> },
         { menuItem: 'Events', render: () => <Tab.Pane>About content</Tab.Pane>  }, //<ProfileActivities />
         { menuItem: 'Followers', render: () => <Tab.Pane>About content</Tab.Pane> },  //<ProfileFollowings />

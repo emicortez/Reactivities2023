@@ -11,7 +11,7 @@ namespace Application.Activities
 {
     public class List
     {
-        public class Query: IRequest<Result<List<ActivityDto>>>
+        public class Query : IRequest<Result<List<ActivityDto>>>
         {
 
         }
@@ -32,8 +32,8 @@ namespace Application.Activities
             public async Task<Result<List<ActivityDto>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var result = await _dataContext.Activities
-                    .ProjectTo<ActivityDto>(_mapper.ConfigurationProvider)
-                    .ToListAsync(cancellationToken);
+                  .ProjectTo<ActivityDto>(_mapper.ConfigurationProvider, new { currentUsername = _userAccessor.GetUsername() })
+                  .ToListAsync(cancellationToken);
 
                 var activitiesToReturn = _mapper.Map<List<ActivityDto>>(result);
 
